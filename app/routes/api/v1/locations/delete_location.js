@@ -7,13 +7,19 @@ module.exports = Router({ mergeParams: true })
     try {
       req.db.location.findByIdAndDelete(req.params.locid, (err, data) => {
         if (err) { 
-          req.logger.warning(`Unable to delete location: ${req.params.locid}`);
+          req.logger.error(`Unable to delete location: ${req.params.locid}`);
           res.status(404);
           throw err;
         }
         else {
-          req.logger.info(`Deleted ${data}`);
-          res.status(200);
+          if (!data) {
+            req.logger.info(`Unable to delete location: ${req.params.locid}`);
+            res.status(404).send(`Unable to delete location: ${req.params.locid}`);
+          }
+          else {
+            req.logger.info(`Deleted ${data}`);
+            res.status(200).send(`Deleted ${data}`);  
+          }
         }
       });
     } catch (error) {
