@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require("./logging");
 const database = require('./database/create_database.js')({ logger })
-console.log(database);
 const app = require('./app/create_express_app')({logger, database})
 
 const server = http.createServer(app);

@@ -7,8 +7,8 @@ module.exports = Router({ mergeParams: true })
     try {
       req.db.location.findById(req.params.locid, (err, data) => {
         if (err) { 
-          req.logger.warning(`Unable to find location: ${req.params.locid}`);
-          res.status(404)
+          req.logger.info(`Unable to find location: ${req.params.locid}`);
+          res.status(404).send(`Unable to find location: ${req.params.locid}`);
         }
         else {
           res.status(200).send(data);

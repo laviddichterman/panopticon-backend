@@ -4,17 +4,17 @@
 const Router = require('express').Router
 
 module.exports = Router({ mergeParams: true })
-    .post('/v1/sensors/:sensor', async (req, res, next) => {
+    .post('/v1/sensors/:sid', async (req, res, next) => {
         try {
             // add sensor if not found
-            req.db.sensor.findOneAndUpdate(
-                { address: req.params.sensor },
+            req.db.sensor.findByIdAndUpdate(
+                req.params.sid,
                 {},
                 { new: true, upsert: true },
                 (err, doc) => { });
             // add temperature entry
             const temp_entry = new req.db.temp({
-                sensor: req.params.sensor,
+                sensor: req.params.sid,
                 timestamp: req.body.timestamp,
                 temperature: req.body.temperature
             });

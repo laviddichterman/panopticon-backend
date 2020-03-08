@@ -16,13 +16,12 @@ module.exports = Router({ mergeParams: true })
         { new: true },
         (err, doc) => {
           if (err) {
-            req.logger.warning(`Unable to update sensor: ${req.params.sensor}`);
-            res.status(404);
-            throw err;
+            req.logger.info(`Unable to update sensor: ${req.params.sensor}`);
+            res.status(404).send(`Unable to update sensor: ${req.params.sensor}`);;
           }
           else {
             req.logger.info(`Successfully updated ${doc}`);
-            res.status(200);
+            res.status(200).send(doc);
           }
          });
     } catch (error) {

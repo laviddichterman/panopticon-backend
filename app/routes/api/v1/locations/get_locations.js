@@ -7,7 +7,8 @@ module.exports = Router({ mergeParams: true })
     try {
       req.db.location.find((err, data) => {
         if (err) { 
-          req.logger.warning('Unable to find locations');
+          req.logger.warn('Unable to find locations');
+          res.status(500).send(err);
           throw err;
         }
         else {
