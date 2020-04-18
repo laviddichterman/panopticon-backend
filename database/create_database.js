@@ -8,8 +8,8 @@ const DBENDPOINT = process.env.DBENDPOINT || 'mongodb://127.0.0.1:27017';
 const DBTABLE = process.env.DBTABLE || "panopticon";
 
 module.exports = ({ logger }) => {
-  const url = process.env.MONGODB_URL
-  mongoose.connect(`${DBENDPOINT}/${DBTABLE}`, 
+  const url = `${DBENDPOINT}/${DBTABLE}`;
+  mongoose.connect(url, 
     { useNewUrlParser: true, useUnifiedTopology: true, user: DBUSER, pass: DBPASS })
   const db = glob.sync('./schema/**/*.js', { cwd: __dirname })
     .map(filename => {
