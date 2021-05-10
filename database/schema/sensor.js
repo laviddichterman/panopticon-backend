@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SensorSchema = new Schema({
-  _id: { type: String, required: true },
   min: Number,
   max: Number,
   algorithm: { type: String, enum: ["AVG10"], default: "AVG10", required: true },
